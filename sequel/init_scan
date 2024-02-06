@@ -1,0 +1,18 @@
+# Nmap 7.94SVN scan initiated Tue Feb  6 13:32:23 2024 as: nmap -sC -sV -oN init_scan 10.129.95.232
+Nmap scan report for 10.129.95.232
+Host is up (0.095s latency).
+Not shown: 999 closed tcp ports (conn-refused)
+PORT     STATE SERVICE VERSION
+3306/tcp open  mysql?
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.5.5-10.3.27-MariaDB-0+deb10u1
+|   Thread ID: 83
+|   Capabilities flags: 63486
+|   Some Capabilities: InteractiveClient, SupportsLoadDataLocal, IgnoreSigpipes, Speaks41ProtocolNew, SupportsTransactions, Speaks41ProtocolOld, FoundRows, Support41Auth, LongColumnFlag, IgnoreSpaceBeforeParenthesis, SupportsCompression, ConnectWithDatabase, DontAllowDatabaseTableColumn, ODBCClient, SupportsMultipleResults, SupportsAuthPlugins, SupportsMultipleStatments
+|   Status: Autocommit
+|   Salt: +L{G1_kzC!x^J:!839bd
+|_  Auth Plugin Name: mysql_native_password
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Feb  6 13:35:58 2024 -- 1 IP address (1 host up) scanned in 214.83 seconds
