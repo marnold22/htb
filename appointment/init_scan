@@ -1,0 +1,11 @@
+# Nmap 7.94SVN scan initiated Tue Feb  6 12:32:46 2024 as: nmap -sC -sV -oN init_scan 10.129.123.171
+Nmap scan report for 10.129.123.171
+Host is up (0.098s latency).
+Not shown: 999 closed tcp ports (conn-refused)
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.38 ((Debian))
+|_http-server-header: Apache/2.4.38 (Debian)
+|_http-title: Login
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Feb  6 12:44:47 2024 -- 1 IP address (1 host up) scanned in 720.51 seconds
