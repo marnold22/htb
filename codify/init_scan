@@ -1,0 +1,19 @@
+# Nmap 7.94SVN scan initiated Tue Feb 27 12:07:01 2024 as: nmap -sC -sV -oN init_scan 10.10.11.239
+Nmap scan report for 10.10.11.239
+Host is up (0.090s latency).
+Not shown: 995 closed tcp ports (conn-refused)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 96:07:1c:c6:77:3e:07:a0:cc:6f:24:19:74:4d:57:0b (ECDSA)
+|_  256 0b:a4:c0:cf:e2:3b:95:ae:f6:f5:df:7d:0c:88:d6:ce (ED25519)
+80/tcp   open  http       Apache httpd 2.4.52
+|_http-title: Did not follow redirect to http://codify.htb/
+1234/tcp open  http       SimpleHTTPServer 0.6 (Python 3.10.12)
+|_http-title: Directory listing for /
+3000/tcp open  ppp?
+4445/tcp open  upnotifyp?
+Service Info: Host: codify.htb; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Feb 27 12:10:05 2024 -- 1 IP address (1 host up) scanned in 184.57 seconds
